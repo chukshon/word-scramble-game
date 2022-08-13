@@ -25,7 +25,7 @@ export const useApp = () => {
       return
     }
     if (value.toLowerCase() === correctWord.toLowerCase()) {
-      alert(`Congrats! ${correctWord} is the correct word`)
+      alert(`Congrats! ${value.toUpperCase()} is the correct word`)
       getSingleWord()
     } else {
       alert(`Oops! ${value} is not a correct word`)

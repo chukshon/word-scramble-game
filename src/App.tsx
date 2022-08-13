@@ -33,7 +33,7 @@ function App() {
     }, 3000)
 
     if (time < 0) {
-      alert(`Time off! ${correctWord} was the correct word`)
+      alert(`Time off! ${correctWord.toUpperCase()} was the correct word`)
       setTime(30)
       getSingleWord()
     }
