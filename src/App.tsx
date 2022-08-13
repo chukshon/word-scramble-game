@@ -18,7 +18,6 @@ function App() {
     const singleWord = words[Math.floor(Math.random() * words.length)]
     setRandomWord(singleWord)
   }
-  const randomizeWord = () => {}
 
   const refreshWord = () => {
     console.log('refresh')
