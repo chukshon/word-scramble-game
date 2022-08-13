@@ -38,21 +38,22 @@
   --radius-2: 5px
 }
 
-body {
+.body {
   background-color: var(--light-blue);
+  padding: 0px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   min-height: 100vh;
 }
 
 .wrapper {
   background-color: white;
-  width: 500px;
+  width: 440px;
   height: max-content;
-  border-radius: var(--radius-1);
-  padding: 20px 0px 40px;
+  border-radius: var(--radius-2);
+  padding: 5px 0px 40px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
 .header {
@@ -69,7 +70,6 @@ body {
 .content {
   padding: 20px 20px 0px;
   width: 100%;
-
 }
 
 .content .random_word {
@@ -150,4 +150,22 @@ button {
 .button_group .check_word:hover {
   background-color: var(--dark-blue);
   color: #fff;
+}
+
+@media screen and (max-width: 470px) {
+  .wrapper h2 {
+    font-size: 22px;
+    padding: 13px 20px;
+  }
+
+  .wrapper .random_word {
+    font-size: 30px;
+    letter-spacing: 20px;
+    margin-right: -20px;
+  }
+
+  .wrapper input {
+    height: 55px;
+    font-size: 17px;
+  }
 }
