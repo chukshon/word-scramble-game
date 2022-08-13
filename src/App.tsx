@@ -8,7 +8,7 @@ function App() {
     hint: '',
   })
   const [randomWord, setRandomWord] = useState('')
-  const [time, setTime] = useState(1)
+  const [time, setTime] = useState(30)
   const [value, setValue] = useState('')
   const [correctWord, setCorrectWord] = useState('')
 
@@ -16,6 +16,7 @@ function App() {
     const singleWord = words[Math.floor(Math.random() * words.length)]
     setRandomValue(singleWord)
     setCorrectWord(singleWord.word)
+    setTime(30)
   }
 
   const randomizeWord = () => {
@@ -57,6 +58,19 @@ function App() {
   useEffect(() => {
     randomizeWord()
   }, [randomValue])
+
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      setTime((time) => (time = time - 1))
+    }, 2000)
+
+    if (time < 0) {
+      alert(`Time off! ${correctWord} was the correct word`)
+      setTime(30)
+      getSingleWord()
+    }
+    return () => clearTimeout(interval)
+  }, [time])
 
   return (
     <div className='wrapper'>
