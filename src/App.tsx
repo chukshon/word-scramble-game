@@ -14,6 +14,7 @@ function App() {
 
   const getSingleWord = () => {
     const singleWord = words[Math.floor(Math.random() * words.length)]
+    setValue('')
     setRandomValue(singleWord)
     setCorrectWord(singleWord.word)
     setTime(30)
@@ -38,11 +39,9 @@ function App() {
     }
     if (value.toLowerCase() === correctWord.toLowerCase()) {
       alert(`Congrats! ${correctWord} is the correct word`)
-      setValue('')
       getSingleWord()
     } else {
       alert(`Oops! ${value} is not a correct word`)
-      console.log(correctWord)
     }
   }
 
@@ -62,7 +61,7 @@ function App() {
   useEffect(() => {
     const interval = setTimeout(() => {
       setTime((time) => (time = time - 1))
-    }, 2000)
+    }, 200)
 
     if (time < 0) {
       alert(`Time off! ${correctWord} was the correct word`)
