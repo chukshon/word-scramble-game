@@ -4,7 +4,7 @@ In this game, letters are shuffled randomly, and you've to find the correct word
 
 ## Live Website
 
-Open [https://wordscramblegame.netlify.app/](Live Website) to view it in the browser.
+Open [Live Website](https://wordscramblegame.netlify.app/) to view it in the browser.
 
 ## Available Scripts
 
