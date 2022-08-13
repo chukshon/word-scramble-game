@@ -3,36 +3,49 @@ import './App.css'
 import { words } from './utilis/word'
 
 function App() {
-  const [randomWord, setRandomWord] = useState({
+  const [randomValue, setRandomValue] = useState({
     word: '',
     hint: '',
   })
+  const [randomWord, setRandomWord] = useState('')
   const [time, setTime] = useState(1)
   const [value, setValue] = useState('')
-  const [correctWord, setCorrectWord] = useState({
-    word: '',
-    hint: '',
-  })
+  const [correctWord, setCorrectWord] = useState('')
 
   const getSingleWord = () => {
     const singleWord = words[Math.floor(Math.random() * words.length)]
-    setRandomWord(singleWord)
+    setRandomValue(singleWord)
+    setCorrectWord(singleWord.word)
   }
 
-  const refreshWord = () => {
-    console.log('refresh')
+  const randomizeWord = () => {
+    let wordArray = randomValue.word.split('')
+    for (let i = wordArray.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1))
+      let temp = wordArray[i]
+      wordArray[i] = wordArray[j]
+      wordArray[j] = temp
+    }
+    setRandomWord(wordArray.join(''))
   }
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
     if (!value) {
       alert('Length of word must be greater than 1')
       return
     }
-    console.log(value)
+    if (value.toLowerCase() === correctWord.toLowerCase()) {
+      alert('correct')
+      setValue('')
+      getSingleWord()
+    } else {
+      alert('wrong')
+      console.log(correctWord)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name
     const value = e.target.value
     setValue(value)
   }
@@ -41,15 +54,19 @@ function App() {
     getSingleWord()
   }, [])
 
+  useEffect(() => {
+    randomizeWord()
+  }, [randomValue])
+
   return (
     <div className='wrapper'>
       <div className='header'>
         <h1>Word Scramble</h1>
       </div>
       <div className='content'>
-        <h1 className='random_word'>{randomWord.word}</h1>
+        <h1 className='random_word'>{randomWord}</h1>
         <p className='hint'>
-          Hint: <span>{randomWord.hint}</span>
+          Hint: <span>{randomValue.hint}</span>
         </p>
         <p className='time_left'>
           Time Left: <b>{time}</b>s
@@ -59,7 +76,7 @@ function App() {
             type='text'
             value={value}
             placeholder='Enter a valid word'
-            maxLength={randomWord.word.length}
+            maxLength={randomValue.word.length}
             onChange={handleChange}
           />
           <div className='button_group'>
