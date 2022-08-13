@@ -36,11 +36,11 @@ function App() {
       return
     }
     if (value.toLowerCase() === correctWord.toLowerCase()) {
-      alert('correct')
+      alert(`Congrats! ${correctWord} is the correct word`)
       setValue('')
       getSingleWord()
     } else {
-      alert('wrong')
+      alert(`Oops! ${value} is not a correct word`)
       console.log(correctWord)
     }
   }
