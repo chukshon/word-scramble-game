@@ -1,67 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import './App.css'
-import { words } from './utilis/word'
+import { useApp } from './useApp'
+import { randomizeWord } from './utilis/randomizeWord'
 
 function App() {
-  const [randomValue, setRandomValue] = useState({
-    word: '',
-    hint: '',
-  })
-  const [randomWord, setRandomWord] = useState('')
-  const [time, setTime] = useState(30)
-  const [value, setValue] = useState('')
-  const [correctWord, setCorrectWord] = useState('')
-
-  const getSingleWord = () => {
-    const singleWord = words[Math.floor(Math.random() * words.length)]
-    setValue('')
-    setRandomValue(singleWord)
-    setCorrectWord(singleWord.word)
-    setTime(30)
-  }
-
-  const randomizeWord = () => {
-    let wordArray = randomValue.word.split('')
-    for (let i = wordArray.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1))
-      let temp = wordArray[i]
-      wordArray[i] = wordArray[j]
-      wordArray[j] = temp
-    }
-    setRandomWord(wordArray.join(''))
-  }
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    if (!value) {
-      alert('Length of word must be greater than 1')
-      return
-    }
-    if (value.toLowerCase() === correctWord.toLowerCase()) {
-      alert(`Congrats! ${correctWord} is the correct word`)
-      getSingleWord()
-    } else {
-      alert(`Oops! ${value} is not a correct word`)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setValue(value)
-  }
+  const {
+    randomValue,
+    randomWord,
+    time,
+    setTime,
+    value,
+    correctWord,
+    getSingleWord,
+    handleSubmit,
+    handleChange,
+    setRandomWord,
+  } = useApp()
 
   useEffect(() => {
     getSingleWord()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
-    randomizeWord()
+    setRandomWord(randomizeWord(randomValue.word))
+    // eslint-disable-next-line
   }, [randomValue])
 
   useEffect(() => {
     const interval = setTimeout(() => {
-      setTime((time) => (time = time - 1))
-    }, 200)
+      setTime((time: number) => (time = time - 1))
+    }, 3000)
 
     if (time < 0) {
       alert(`Time off! ${correctWord} was the correct word`)
@@ -69,6 +38,7 @@ function App() {
       getSingleWord()
     }
     return () => clearTimeout(interval)
+    // eslint-disable-next-line
   }, [time])
 
   return (
